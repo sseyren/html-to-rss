@@ -1,0 +1,13 @@
+name: html-to-rss
+version: 0.1.0
+
+authors:
+  - Serhat Seyren <sseyren@hotmail.com>
+
+targets:
+  html-to-rss:
+    main: src/html-to-rss.cr
+
+crystal: 1.0.0
+
+license: MIT
