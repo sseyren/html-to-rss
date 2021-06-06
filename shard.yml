@@ -1,6 +1,10 @@
 name: html-to-rss
 version: 0.1.0
 
+dependencies:
+  kemal:
+    github: kemalcr/kemal
+
 authors:
   - Serhat Seyren <sseyren@hotmail.com>
 
