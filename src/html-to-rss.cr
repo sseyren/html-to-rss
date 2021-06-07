@@ -15,6 +15,15 @@ module HtmlToRss
     raise Kemal::Exceptions::RouteNotFound.new(env)
   end
 
+  def add_charset(env, charset="utf-8")
+    if !env.response.headers["Content-Type"].includes? "charset=#{charset}"
+      env.response.headers["Content-Type"] += "; charset=#{charset}"
+    end
+  end
+
+  before_all {|env| add_charset env}
+  after_all {|env| add_charset env}
+
   error 404 do |env, exc|
     render_template "error"
   end
@@ -55,10 +64,6 @@ module HtmlToRss
         end
       end
     end
-  end
-
-  after_all do |env|
-    env.response.headers["Content-Type"] += "; charset=utf-8"
   end
 
   Kemal.run
