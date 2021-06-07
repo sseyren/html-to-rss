@@ -6,8 +6,13 @@ require "./scrapers"
 module HtmlToRss
   VERSION = "0.1.0"
 
+  macro render_template(filename)
+    render "src/views/#{{{filename}}}.ecr", "src/views/base.ecr"
+  end
+
   get "/" do |env|
-    "merhaba"
+    orgs = @@scraper_tree
+    render_template "index"
   end
 
   get "/:org" do |env|
@@ -16,7 +21,8 @@ module HtmlToRss
     if org.nil?
       render_404
     else
-      org.name
+      full_host = "#{Kemal.config.scheme}://#{env.request.headers["Host"]}"
+      render_template "organization"
     end
   end
 

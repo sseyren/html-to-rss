@@ -1,0 +1,35 @@
+<h1><%= org.name %></h1>
+<p>Here is the feeds for this organization:</p>
+
+<% org.scrapers.each do |endpoint| %>
+<div class="pure-form pure-g endpoint-g">
+  <div class="pure-u-2-5 endpoint-u text-center">
+    <a href="<%= endpoint.target %>" target="_blank"><%= endpoint.title %></a>
+  </div>
+  <div class="pure-u-2-5 endpoint-u">
+    <input
+      type="text"
+      class="pure-input-1"
+      value='<%= "#{full_host}/rss/#{org.path}/#{endpoint.path}" %>'
+      readonly
+    />
+  </div>
+  <div class="pure-u-1-5 endpoint-u">
+    <button class="pure-button copy-button" onclick="copyButton(this)">
+      Copy
+    </button>
+  </div>
+</div>
+
+<%= yield_content "javascript" %>
+<script>
+  function copyButton(elm) {
+    var target = elm.parentElement.parentElement.children[1].children[0];
+    target.select();
+    target.setSelectionRange(0, 99999);
+    document.execCommand("copy");
+  }
+</script>
+<% end %>
+
+<%= render "./src/views/back-arrow.ecr" %>

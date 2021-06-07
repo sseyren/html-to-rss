@@ -1,0 +1,34 @@
+<h1>HTML-to-RSS Project</h1>
+<p>
+  This project aims to parse HTML page and generate a RSS feed with it.
+  That's it. RSS is a great thing to have, whenever something changes in website
+  you will be notified. I don't want to go and check websites regularly. A
+  computer/mobile device should do this, not me.
+</p>
+<p>
+  If you want to add a new organization to this project, here is the
+  <a href="https://github.com/thesseyren/html-to-rss" target="_blank">
+    <img
+     class="github-icon"
+     src="https://github.githubassets.com/favicons/favicon.svg"
+    >
+    GitHub link of this project
+  </a>.
+  Feel free to fork this. Thank you.
+</p>
+<p>
+  Here is the current list of "scrapers":
+</p>
+
+<div class="pure-menu custom-restricted-width">
+  <span class="pure-menu-heading">Organizations</span>
+  <ul class="pure-menu-list">
+    <% orgs.each do |org| %>
+    <li class="pure-menu-item pure-menu-selected">
+      <a href="/<%= org.path %>" class="pure-menu-link">
+        <%= org.name %>
+      </a>
+    </li>
+    <% end %>
+  </ul>
+</div>
