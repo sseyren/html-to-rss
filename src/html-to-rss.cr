@@ -1,6 +1,6 @@
 require "kemal"
 
-require "./scrapers"
+require "./scraper-tree"
 
 # TODO: Write documentation for `HtmlToRss`
 module HtmlToRss
