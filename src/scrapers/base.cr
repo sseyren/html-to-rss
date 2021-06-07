@@ -5,7 +5,7 @@ module RssScrapers
       DEFAULT_TIMEOUT = 15 # seconds
       getter path, title, target
   
-      def initialize(@path : String, @title : String, @target : String)
+      def initialize(@path : String, @title : String, @target : URI)
       end
   
       def run

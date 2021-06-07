@@ -1,3 +1,4 @@
+require "uri"
 require "http/client"
 require "digest/sha256"
 require "myhtml"
@@ -9,8 +10,6 @@ module RssScrapers
 
   class BalikesirUni < BaseScraper
     TIME_LOC = Time::Location.load("Europe/Istanbul")
-    HOST = "www.balikesir.edu.tr"
-    REF_PATH = "/site/birim/bilgisayar-muhendisligi-bolumu-293094"
 
     MONTHS = {
       "ARA": 12,
@@ -28,50 +27,59 @@ module RssScrapers
     }
 
     def run
-      client = HTTP::Client.new(HOST)
-      ref = client.get(REF_PATH)
+      client = HTTP::Client.new(@target)
+      headers = nil
+
+      if @target.path.includes? "/tum-birim-duyuru/"
+        ref_path = @target.path.sub("/tum-birim-duyuru/", "/birim/")
+        ref = client.get(ref_path)
+        #p! ref.success?
+
+        headers = ref.cookies.add_request_headers(HTTP::Headers.new())
+        headers.add(
+          "Referer",
+          "#{@target.scheme}://#{@target.host}/#{ref_path}"
+        )
+      end
+
+      res = client.get(@target.path, headers)
       #p! ref.success?
 
-      headers = ref.cookies.add_request_headers(HTTP::Headers.new())
-      headers.add("Referer", "http://#{HOST}#{REF_PATH}")
-      #p! headers
-
-      res = client.get(@target, headers)
-      #p! ref.success?
-
-      html = res.body
       client.close()
 
       feed = RSS::Channel.new(
-        link: "http://#{HOST}#{@target}",
+        link: @target,
         title: "BAUN #{@title}",
         description: "RSS feed for #{@title} @ Balikesir University",
       )
 
-      parser = Myhtml::Parser.new(html)
-      container = parser.css(".main-content .pi-section .pi-row").first
+      parser = Myhtml::Parser.new(res.body)
+      container = parser.css(".pi-section .pi-row").first
 
       container.children.nodes(:div).each do |entry|
-        div = entry.children.nodes(:div).first
-        d, m, y = div.inner_text.strip.split(" ").select {|x| !x.empty?}
-        d, m, y = d.to_i, MONTHS[m], y.to_i
-        time = Time.local(y, m, d, location:TIME_LOC)
-
         h = entry.children.nodes(:h2).first
         a = h.children.nodes(:a).first
         header, path = a.inner_text.strip, a.attribute_by("href").to_s.strip
 
         item = RSS::Item.new(header)
-        item.link = URI.parse("http://#{HOST}#{path}")
+        item.link = URI.parse("#{@target.scheme}://#{@target.host}#{path}")
         item.guid_is_perma_link = false
         item.guid = URI.parse(Digest::SHA256.hexdigest("#{path} #{header}"))
-        item.pub_date = time
+
+        div = entry.children.nodes(:div).first
+        d = div.inner_text.strip.split(" ").select {|x| !x.empty?}
+
+        if d.size == 3
+          item.pub_date = Time.local(d[2].to_i, MONTHS[d[1]], d[0].to_i, location:TIME_LOC)
+        elsif d.size == 2
+          now = Time.local(TIME_LOC)
+          item.pub_date = Time.local(now.year, MONTHS[d[1]], d[0].to_i, location:TIME_LOC)
+        end
 
         feed << item
       end
 
       feed.to_s
-
     end
 
   end
