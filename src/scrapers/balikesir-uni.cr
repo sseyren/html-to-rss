@@ -53,6 +53,9 @@ module RssScrapers
         title: "BAUN #{@title}",
         description: "RSS feed for #{@title} @ Balikesir University",
       )
+      feed.language = "tr"
+      feed.last_build_date = Time.local(TIME_LOC)
+      feed.webmaster = "thesseyren@gmail.com (Serhat Seyren)"
 
       parser = Myhtml::Parser.new(res.body)
       container = parser.css(".pi-section .pi-row").first
