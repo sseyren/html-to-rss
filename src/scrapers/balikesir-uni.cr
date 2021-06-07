@@ -33,7 +33,6 @@ module RssScrapers
       if @target.path.includes? "/tum-birim-duyuru/"
         ref_path = @target.path.sub("/tum-birim-duyuru/", "/birim/")
         ref = client.get(ref_path)
-        #p! ref.success?
 
         headers = ref.cookies.add_request_headers(HTTP::Headers.new())
         headers.add(
@@ -43,7 +42,9 @@ module RssScrapers
       end
 
       res = client.get(@target.path, headers)
-      #p! ref.success?
+      if !res.success?
+        raise FailedRequestException.new
+      end
 
       client.close()
 

@@ -36,8 +36,14 @@ module HtmlToRss
       if scraper.nil?
         render_404
       else
-        env.response.content_type = "text/xml"
-        scraper.run
+        begin
+          resp = scraper.run
+        rescue ex
+          render_500(env, ex, true)
+        else
+          env.response.content_type = "text/xml"
+          resp
+        end
       end
     end
   end
