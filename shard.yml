@@ -4,6 +4,10 @@ version: 0.1.0
 dependencies:
   kemal:
     github: kemalcr/kemal
+  myhtml:
+    github: kostya/myhtml
+  cryss:
+    github: xeals/cryss
 
 authors:
   - Serhat Seyren <sseyren@hotmail.com>
