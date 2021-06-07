@@ -7,7 +7,7 @@ dependencies:
   myhtml:
     github: kostya/myhtml
   cryss:
-    github: xeals/cryss
+    github: thesseyren/cryss
 
 authors:
   - Serhat Seyren <sseyren@hotmail.com>

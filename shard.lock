@@ -1,8 +1,8 @@
 version: 2.0
 shards:
   cryss:
-    git: https://github.com/xeals/cryss.git
-    version: 0.1.0
+    git: https://github.com/thesseyren/cryss.git
+    version: 0.1.1
 
   exception_page:
     git: https://github.com/crystal-loot/exception_page.git
