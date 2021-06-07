@@ -1,3 +1,4 @@
-<h1>Error Code: {{ code }}</h1>
-<p>{{ error }}</p>
+<h1>Error Code: <%= env.response.status_code %></h1>
+<p><%= exc.message %></p>
+
 <%= render "./src/views/back-arrow.ecr" %>
