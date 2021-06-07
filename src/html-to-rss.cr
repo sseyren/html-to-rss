@@ -42,7 +42,7 @@ module HtmlToRss
           render_500(env, ex, true)
         else
           env.response.content_type = "text/xml"
-          resp
+          resp.to_s
         end
       end
     end

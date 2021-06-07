@@ -78,7 +78,7 @@ module RssScrapers
         feed << item
       end
 
-      feed.to_s
+      feed
     end
 
   end
