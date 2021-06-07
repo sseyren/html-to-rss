@@ -70,10 +70,8 @@ module RssScrapers
         d = div.inner_text.strip.split(" ").select {|x| !x.empty?}
 
         if d.size == 3
-          item.pub_date = Time.local(d[2].to_i, MONTHS[d[1]], d[0].to_i, location:TIME_LOC)
-        elsif d.size == 2
-          now = Time.local(TIME_LOC)
-          item.pub_date = Time.local(now.year, MONTHS[d[1]], d[0].to_i, location:TIME_LOC)
+          item.pub_date = Time.local(
+            d[2].to_i, MONTHS[d[1]], d[0].to_i, location:TIME_LOC)
         end
 
         feed << item
