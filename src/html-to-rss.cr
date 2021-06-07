@@ -42,6 +42,10 @@ module HtmlToRss
     end
   end
 
+  after_all do |env|
+    env.response.headers["Content-Type"] += "; charset=utf-8"
+  end
+
   Kemal.run
 
 end
