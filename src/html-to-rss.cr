@@ -16,7 +16,7 @@ module HtmlToRss
   end
 
   def add_charset(env, charset="utf-8")
-    if !env.response.headers["Content-Type"].includes? "charset=#{charset}"
+    if !env.response.headers["Content-Type"].includes? "charset="
       env.response.headers["Content-Type"] += "; charset=#{charset}"
     end
   end
