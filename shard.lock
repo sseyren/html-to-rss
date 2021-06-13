@@ -1,8 +1,8 @@
 version: 2.0
 shards:
   cryss:
-    git: https://github.com/thesseyren/cryss.git
-    version: 0.1.1
+    git: https://github.com/xeals/cryss.git
+    version: 0.1.0+git.commit.69503e462a75ee57788777d2f7e883970f105340
 
   exception_page:
     git: https://github.com/crystal-loot/exception_page.git
@@ -18,7 +18,7 @@ shards:
 
   myhtml:
     git: https://github.com/kostya/myhtml.git
-    version: 1.5.4
+    version: 1.5.5
 
   radix:
     git: https://github.com/luislavena/radix.git
