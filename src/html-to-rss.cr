@@ -39,7 +39,12 @@ module HtmlToRss
     if org.nil?
       raise_404 env
     else
-      full_host = "#{Kemal.config.scheme}://#{env.request.headers["Host"]}"
+      full_host = if ENV.has_key? "HTMLTORSS_HOST"
+        ENV["HTMLTORSS_HOST"]
+      else
+        "https://#{env.request.headers["Host"]}"
+      end
+
       render_template "organization"
     end
   end
