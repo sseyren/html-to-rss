@@ -20,6 +20,15 @@ module RssScrapers
         client
       end
 
+      # Method for the scraper to go and fetch the data that will be parsed.
+      # This method should be called from `#run` method and should return
+      # `String`.
+      protected def fetch
+        raise NotImplementedError.new "fetch"
+      end
+
+      # This is the main method for the scraper.
+      # Should return `RSS::Channel` instance.
       def run
         raise NotImplementedError.new "run"
       end

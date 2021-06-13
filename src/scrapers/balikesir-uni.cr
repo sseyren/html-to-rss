@@ -26,7 +26,7 @@ module RssScrapers
       "OCA": 1,
     }
 
-    def run
+    protected def fetch
       client = set_timeout HTTP::Client.new(@target)
       headers = nil
 
@@ -41,12 +41,17 @@ module RssScrapers
         )
       end
 
-      res = client.get(@target.path, headers)
-      if !res.success?
+      response = client.get(@target.path, headers)
+      if !response.success?
         raise FailedRequestException.new
       end
 
       client.close()
+      response.body
+    end
+
+    def run
+      response = fetch
 
       feed = RSS::Channel.new(
         link: @target,
@@ -57,7 +62,7 @@ module RssScrapers
       feed.last_build_date = Time.local(TIME_LOC)
       feed.webmaster = "thesseyren@gmail.com (Serhat Seyren)"
 
-      parser = Myhtml::Parser.new(res.body)
+      parser = Myhtml::Parser.new(response)
       container = parser.css(".pi-section .pi-row").first
 
       container.children.nodes(:div).each do |entry|
