@@ -27,7 +27,7 @@ module RssScrapers
     }
 
     def run
-      client = HTTP::Client.new(@target)
+      client = set_timeout HTTP::Client.new(@target)
       headers = nil
 
       if @target.path.includes? "/tum-birim-duyuru/"
