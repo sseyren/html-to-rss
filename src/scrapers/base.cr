@@ -2,8 +2,10 @@
 module RssScrapers
 
     class BaseScraper
-      DEFAULT_TIMEOUT = 15 # seconds
       getter path, title, target
+
+      # Default timeout for HTTP requests.
+      DEFAULT_TIMEOUT = 15 # seconds
 
       def initialize(@path : String, @title : String, @target : URI)
       end
