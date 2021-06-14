@@ -1,6 +1,4 @@
-
 module RssScrapers
-
   class BaseScraper
     getter path, title, target
 
@@ -13,7 +11,7 @@ module RssScrapers
     # Should call this method whenever a `HTTP::Client` constructed.
     protected def set_timeout(
       client : HTTP::Client,
-      timeout = DEFAULT_TIMEOUT,
+      timeout = DEFAULT_TIMEOUT
     )
       client.connect_timeout = timeout
       client.dns_timeout = timeout
@@ -34,15 +32,13 @@ module RssScrapers
     def run
       raise NotImplementedError.new "run"
     end
-
   end
 
   class FailedRequestException < Exception
     def initialize(
       message = "During execution, one of the requests has been failed."
     )
-    super(message)
+      super(message)
     end
   end
-
 end

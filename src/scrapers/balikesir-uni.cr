@@ -7,7 +7,6 @@ require "cryss"
 require "./base"
 
 module RssScrapers
-
   class BalikesirUni < BaseScraper
     TIME_LOC = Time::Location.load("Europe/Istanbul")
 
@@ -34,7 +33,7 @@ module RssScrapers
         ref_path = @target.path.sub("/tum-birim-duyuru/", "/birim/")
         ref = client.get(ref_path)
 
-        headers = ref.cookies.add_request_headers(HTTP::Headers.new())
+        headers = ref.cookies.add_request_headers(HTTP::Headers.new)
         headers.add(
           "Referer",
           "#{@target.scheme}://#{@target.host}/#{ref_path}"
@@ -46,7 +45,7 @@ module RssScrapers
         raise FailedRequestException.new
       end
 
-      client.close()
+      client.close
       response.body
     end
 
@@ -76,11 +75,11 @@ module RssScrapers
         item.guid = URI.parse(Digest::SHA256.hexdigest("#{path} #{header}"))
 
         div = entry.children.nodes(:div).first
-        d = div.inner_text.strip.split(" ").select {|x| !x.empty?}
+        d = div.inner_text.strip.split(" ").select { |x| !x.empty? }
 
         if d.size == 3
           item.pub_date = Time.local(
-            d[2].to_i, MONTHS[d[1]], d[0].to_i, location:TIME_LOC)
+            d[2].to_i, MONTHS[d[1]], d[0].to_i, location: TIME_LOC)
         end
 
         feed << item
@@ -88,7 +87,5 @@ module RssScrapers
 
       feed
     end
-
   end
-
 end
