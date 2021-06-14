@@ -5,7 +5,7 @@ require "./scraper-tree"
 # TODO: Write documentation for `HtmlToRss`
 module HtmlToRss
   extend self
-  VERSION = "0.1.0"
+  VERSION = "1.0.0"
 
   macro render_template(filename)
     render "src/views/#{{{filename}}}.ecr", "src/views/base.ecr"
