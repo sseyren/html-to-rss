@@ -38,15 +38,17 @@ module HtmlToRss
 
     if org.nil?
       raise_404 env
-    else
-      full_host = if ENV.has_key? "HTMLTORSS_HOST"
-        ENV["HTMLTORSS_HOST"]
-      else
-        "https://#{env.request.headers["Host"]}"
-      end
-
-      render_template "organization"
     end
+
+    full_host = if ENV.has_key? "HTMLTORSS_HOST"
+      ENV["HTMLTORSS_HOST"]
+    elsif env.request.headers.has_key? "Host"
+      "https://#{env.request.headers["Host"]}"
+    else
+      "http://localhost"
+    end
+
+    render_template "organization"
   end
 
   get "/rss/:org/:endpoint" do |env|
