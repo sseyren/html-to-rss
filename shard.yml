@@ -2,6 +2,8 @@ name: html-to-rss
 version: 0.1.0
 
 dependencies:
+  spec-kemal:
+    github: kemalcr/spec-kemal
   kemal:
     github: kemalcr/kemal
   myhtml:
