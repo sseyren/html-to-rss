@@ -15,7 +15,7 @@ module HtmlToRss
     end
   end
 
-  @@scraper_tree = [
+  SCRAPER_TREE = [
     Organization.new(
       path: "balikesir-uni",
       name: "Balıkesir University",

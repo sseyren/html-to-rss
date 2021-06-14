@@ -29,12 +29,12 @@ module HtmlToRss
   end
 
   get "/" do |env|
-    orgs = @@scraper_tree
+    orgs = SCRAPER_TREE
     render_template "index"
   end
 
   get "/:org" do |env|
-    org = @@scraper_tree.find {|i| i.path == env.params.url["org"]}
+    org = SCRAPER_TREE.find {|i| i.path == env.params.url["org"]}
 
     if org.nil?
       raise_404 env
@@ -52,7 +52,7 @@ module HtmlToRss
   end
 
   get "/rss/:org/:endpoint" do |env|
-    org = @@scraper_tree.find {|i| i.path == env.params.url["org"]}
+    org = SCRAPER_TREE.find {|i| i.path == env.params.url["org"]}
 
     if org.nil?
       raise_404 env
