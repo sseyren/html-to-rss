@@ -26,6 +26,11 @@ module HtmlToRss
           target: URI.parse "http://www.balikesir.edu.tr/index.php?r=site%2Ftum-duyurular",
         ),
         BalikesirUni.new(
+          path: "student",
+          title: "Student Affairs Office",
+          target: URI.parse "http://www.balikesir.edu.tr/index.php?r=site%2Ftum-birim-duyuru&name=ogrenci-isleri-daire-baskanligi&id=6",
+        ),
+        BalikesirUni.new(
           path: "arch",
           title: "Faculty of Architecture",
           target: URI.parse "http://www.balikesir.edu.tr/index.php?r=site%2Ftum-birim-duyuru&name=mimarlik-fakultesi&id=293093",
@@ -84,6 +89,11 @@ module HtmlToRss
           path: "eng_mechatronics",
           title: "Mechatronics Engineering",
           target: URI.parse "http://www.balikesir.edu.tr/index.php?r=site%2Ftum-birim-duyuru&name=mekatronik-muhendisligi-bolumu&id=293105",
+        ),
+        BalikesirUni.new(
+          path: "intl",
+          title: "International Affairs Office",
+          target: URI.parse "http://www.balikesir.edu.tr/index.php?r=site%2Ftum-birim-duyuru&name=uluslararasi-iliskiler-arastirma-ve-uygulama-merkezi&id=129938",
         ),
       ] of BaseScraper,
     ),
