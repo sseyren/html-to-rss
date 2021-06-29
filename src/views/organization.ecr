@@ -20,6 +20,7 @@
     </button>
   </div>
 </div>
+<% end %>
 
 <%= yield_content "javascript" %>
 <script>
@@ -30,6 +31,5 @@
     document.execCommand("copy");
   }
 </script>
-<% end %>
 
 <%= render "./src/views/back-arrow.ecr" %>
