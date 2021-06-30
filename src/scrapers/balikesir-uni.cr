@@ -29,9 +29,9 @@ module RssScrapers
       client = set_timeout HTTP::Client.new(@target)
       headers = nil
 
-      if @target.query.to_s.includes? "tum-birim-duyuru"
-        ref_target = @target.normalize
-        ref_target.query = ref_target.query.to_s.sub("tum-birim-duyuru", "birim")
+      if @target.path.includes? "/tum-birim-duyuru/"
+        ref_target = @target.dup
+        ref_target.path = ref_target.path.sub("/tum-birim-duyuru/", "/birim/")
         ref = client.get(ref_target.to_s)
 
         headers = ref.cookies.add_request_headers(HTTP::Headers.new)
